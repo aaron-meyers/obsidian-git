@@ -1,3 +1,4 @@
+import { hostname as osHostname } from "os";
 import { type App, moment } from "obsidian";
 import type ObsidianGit from "../main";
 import type {
@@ -277,8 +278,7 @@ export abstract class GitManager {
             let hostname = this.plugin.localStorage.getHostname() || "";
             if (!hostname) {
                 try {
-                    const os = await import("os");
-                    hostname = os.hostname();
+                    hostname = osHostname();
                 } catch {
                     // os module not available (e.g., on mobile)
                 }
