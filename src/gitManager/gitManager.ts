@@ -274,7 +274,7 @@ export abstract class GitManager {
             template = template.replace("{{numFiles}}", String(numFiles));
         }
         if (template.includes("{{hostname}}")) {
-            let hostname = this.plugin.localStorage.getHostname() ?? "";
+            let hostname = this.plugin.localStorage.getHostname() || "";
             if (!hostname) {
                 try {
                     const os = await import("os");
