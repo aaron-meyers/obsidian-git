@@ -274,7 +274,15 @@ export abstract class GitManager {
             template = template.replace("{{numFiles}}", String(numFiles));
         }
         if (template.includes("{{hostname}}")) {
-            const hostname = this.plugin.localStorage.getHostname() || "";
+            let hostname = this.plugin.localStorage.getHostname() ?? "";
+            if (!hostname) {
+                try {
+                    const os = await import("os");
+                    hostname = os.hostname();
+                } catch {
+                    // os module not available (e.g., on mobile)
+                }
+            }
             template = template.replace("{{hostname}}", hostname);
         }
 
